@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ES6 Experiments</title>
+  </head>
+  <body>
+  	<script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"
+  	        type="text/javascript"></script>
+  	<script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"
+  	        type="text/javascript"></script>
+  	<script>
+		traceur.options.experimental = true;
+		</script>
+		<script type="module">
+		class Experiment {
+			constructor() {
+
+			}
+
+			arrayComprehension() {
+				var array = [for (x of [0, 1, 2]) for (y of [0, 1, 2]) x + '' + y];
+				console.log('array : ', array);
+			}
+
+			arrowFunctions() {
+				var square = (x) => {
+				  return x * x;
+				};
+				var square2 = x => x * x;
+
+				console.log('square of 2 : ', square(2));
+				console.log('square of 3 : ', square2(3));
+			}
+		};
+
+		let exp = new Experiment();
+		exp.arrayComprehension();
+		exp.arrowFunctions();
+		</script>
+    <h1 id="message"></h1>
+  </body>
+</html>
