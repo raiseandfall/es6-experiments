@@ -14,28 +14,53 @@
 		<script type="module">
 		class Experiment {
 			constructor() {
-
+				console.log('>>> new Experiment');
 			}
 
+			// Array Comprehension
 			arrayComprehension() {
 				var array = [for (x of [0, 1, 2]) for (y of [0, 1, 2]) x + '' + y];
-				console.log('array : ', array);
+				return array;
 			}
 
-			arrowFunctions() {
-				var square = (x) => {
-				  return x * x;
+			// Arrow functions
+			toSquare(i) {
+				var sq = (n) => {
+			  	return n * n;
+				}
+				return sq(i);
+			}
+
+			computedProperty(n) {
+				var obj = {
+				  [0] : 'hello',
+				  [1] : 'world'
 				};
-				var square2 = x => x * x;
-
-				console.log('square of 2 : ', square(2));
-				console.log('square of 3 : ', square2(3));
+				return obj[n];
 			}
+
+			defaultParameters(a = 'default_a', b = 'default_b', c = 'default_c') {
+				return [a, b, c];
+			}
+
 		};
 
+		class SubExperiment extends Experiment {
+			constructor() {
+				console.log('>>> new SubExperiment');
+			}
+		}
+
+
 		let exp = new Experiment();
-		exp.arrayComprehension();
-		exp.arrowFunctions();
+		var arr = exp.arrayComprehension();
+		console.log('Experiment :: array : ', arr);
+		console.log('Experiment :: square of 2 : ', exp.toSquare(2));
+		console.log('Experiment :: computedProperty : ', exp.computedProperty(0), exp.computedProperty(1));
+		console.log('Experiment :: defaultParameters : ', exp.defaultParameters('a'));
+
+		let subExp = new SubExperiment();
+		console.log('SubExperiment :: square of 3 : ', subExp.toSquare(3));
 		</script>
     <h1 id="message"></h1>
   </body>
