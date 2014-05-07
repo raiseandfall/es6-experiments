@@ -12,6 +12,33 @@
 		traceur.options.experimental = true;
 		</script>
 		<script type="module">
+
+		// Custom
+		function customIterator(array) {
+			// Iterable
+			return {
+				[Symbol.iterator]: function() {
+					var index = 0;
+					// Iterator
+					return {
+						next: function() {
+							if (index < array.length) {
+								return {
+		              value: array[index++],
+		              done: false
+		            }
+		          }
+    	        return {
+								value: undefined,
+								done: true
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//
 		class Experiment {
 			constructor() {
 				console.log('>>> new Experiment');
@@ -43,6 +70,31 @@
 				return [a, b, c];
 			}
 
+			destructuring() {
+				var [a, [b], c, d] = ['hello', [', '], ['world']];
+
+				var pt = {x: 2, y: 3};
+				var {x, y} = pt;
+
+				return [(a + b + c), x, y];
+			}
+
+			forOf() {
+				var res = [];
+				for (var element of [1, 2, 3, 4]) {
+				  res.push(element * element);
+				}
+				return res;
+			}
+
+			forOfCustomIterator() {
+				var g = customIterator(['aerobic','apple','banana','angularjs']);
+				var res = [];
+				for (var a of g) {
+					res.push(a);
+				}
+				return res;
+			}
 		};
 
 		class SubExperiment extends Experiment {
@@ -53,14 +105,27 @@
 
 
 		let exp = new Experiment();
-		var arr = exp.arrayComprehension();
-		console.log('Experiment :: array : ', arr);
+
+		console.log('Experiment :: array : ', exp.arrayComprehension());
+		console.log('---------------------');
 		console.log('Experiment :: square of 2 : ', exp.toSquare(2));
+		console.log('---------------------');
 		console.log('Experiment :: computedProperty : ', exp.computedProperty(0), exp.computedProperty(1));
+		console.log('---------------------');
 		console.log('Experiment :: defaultParameters : ', exp.defaultParameters('a'));
+		console.log('---------------------');
+		console.log('Experiment :: destructuring : ', exp.destructuring());
+		console.log('---------------------');
+		console.log('Experiment :: forOf : ', exp.forOf());
+		console.log('---------------------');
+		console.log('Experiment :: forOfCustomIterator : ', exp.forOfCustomIterator());
+		console.log('---------------------');
 
 		let subExp = new SubExperiment();
 		console.log('SubExperiment :: square of 3 : ', subExp.toSquare(3));
+		console.log('---------------------');
+
+
 		</script>
     <h1 id="message"></h1>
   </body>
