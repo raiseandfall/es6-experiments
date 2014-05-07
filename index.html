@@ -13,6 +13,8 @@
 		</script>
 		<script type="module">
 
+		/* Definitions */
+
 		// Custom
 		function customIterator(array) {
 			// Iterable
@@ -103,7 +105,58 @@
 			}
 		}
 
+		// Property Method Assignement
+		// & Object Initializer Shorthand
+		// & Rest Parameters
+		// & Spread Operators
+		class User {
+			constructor(firstName, lastName, age) {
+				this.firstName_ = firstName;
+				this.lastName_ = lastName;
+				this.age_ = age;
+				this.skills_ = [];
+				this.const_ = {
+					label: 'yo',
+					buildAge(age) {
+						return age + this.label;
+					}
+				}
+			}
 
+			get ageToString() {
+				return this.const_.buildAge(this.age_);
+			}
+
+			get fullContactCard() {
+				var first = 'First Name : ' + this.firstName_,
+						last = 'Last Name : ' + this.lastName_,
+						age = 'Age : ' + this.ageToString;
+				return {first, last, age};
+			}
+
+			addSkills(item, ...items) {
+				this.skills_.push(item);
+				var skills = this.skills_;
+				items.forEach(function(item) {
+					skills.push(item);
+				});
+				this.skills_ = skills;
+			}
+
+			get skills() {
+				return this.skills_;
+			}
+
+			editFullName(first, last) {
+				console.log('first : ', first);
+				console.log('last : ', last);
+				this.firstName_ = first;
+				this.lastName_ = last;
+			}
+		}
+
+
+		/* Experiments */
 		let exp = new Experiment();
 
 		console.log('Experiment :: array : ', exp.arrayComprehension());
@@ -125,6 +178,22 @@
 		console.log('SubExperiment :: square of 3 : ', subExp.toSquare(3));
 		console.log('---------------------');
 
+		var userEntity = new User('Toto', 'Robert', 32);
+		console.log('PropertyMethodAssignement :: ageToString : ', userEntity.ageToString);
+		console.log('---------------------');
+
+		console.log('ObjectInitializerShorthand :: fullContactCard : ', userEntity.fullContactCard);
+		console.log('---------------------');
+
+		console.log('RestParameters :: skills : ', userEntity.skills);
+		console.log('RestParameters :: add skills : javascript, css, html');
+		userEntity.addSkills('javascript', 'css', 'html');
+		console.log('RestParameters :: skills : ', userEntity.skills);
+		console.log('---------------------');
+
+		var newFullName = ['Jean-Michel', 'Martin'];
+		userEntity.editFullName(...newFullName);
+		console.log('SpreadOperator :: editFullName : ', userEntity.fullContactCard);
 
 		</script>
     <h1 id="message"></h1>
