@@ -109,6 +109,7 @@
 		// & Object Initializer Shorthand
 		// & Rest Parameters
 		// & Spread Operators
+		// & Template literals
 		class User {
 			constructor(firstName, lastName, age) {
 				this.firstName_ = firstName;
@@ -127,11 +128,11 @@
 				return this.const_.buildAge(this.age_);
 			}
 
-			get fullContactCard() {
-				var first = 'First Name : ' + this.firstName_,
-						last = 'Last Name : ' + this.lastName_,
-						age = 'Age : ' + this.ageToString;
-				return {first, last, age};
+			get fullContact() {
+				var firstName = this.firstName_,
+						lastName = this.lastName_,
+						age = this.ageToString;
+				return {firstName, lastName, age};
 			}
 
 			addSkills(item, ...items) {
@@ -148,10 +149,13 @@
 			}
 
 			editFullName(first, last) {
-				console.log('first : ', first);
-				console.log('last : ', last);
 				this.firstName_ = first;
 				this.lastName_ = last;
+			}
+
+			get fullBusinessCard() {
+				var tpl = `Hello, my name is ${this.firstName_} ${this.lastName_}`;
+				return tpl;
 			}
 		}
 
@@ -182,7 +186,7 @@
 		console.log('PropertyMethodAssignement :: ageToString : ', userEntity.ageToString);
 		console.log('---------------------');
 
-		console.log('ObjectInitializerShorthand :: fullContactCard : ', userEntity.fullContactCard);
+		console.log('ObjectInitializerShorthand :: fullContact : ', userEntity.fullContact);
 		console.log('---------------------');
 
 		console.log('RestParameters :: skills : ', userEntity.skills);
@@ -193,7 +197,11 @@
 
 		var newFullName = ['Jean-Michel', 'Martin'];
 		userEntity.editFullName(...newFullName);
-		console.log('SpreadOperator :: editFullName : ', userEntity.fullContactCard);
+		console.log('SpreadOperator :: editFullName : ', userEntity.fullContact);
+		console.log('---------------------');
+
+		console.log('TemplateLiterals :: fullBusinessCard : ', userEntity.fullBusinessCard);
+		console.log('---------------------');
 
 		</script>
     <h1 id="message"></h1>
