@@ -21,5 +21,8 @@ function get(url) {
 }
 
 function getJSON(url) {
-  return get(url).then(JSON.parse);
+  return get(url).then(JSON.parse).catch(function(err) {
+  	console.log('getJSON failed :', err);
+    throw err;
+  });
 }

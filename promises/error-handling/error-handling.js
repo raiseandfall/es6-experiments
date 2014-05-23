@@ -17,3 +17,23 @@ get('friends-false.json').then(function(response) {
 }).then(undefined, function(error) {
 	console.log('Failed with skipping to the next then', error);
 });
+
+
+//
+var jsonPromise = new Promise(function(resolve, reject) {
+	resolve(JSON.parse('{"firstName":"Gebertrude", "description":"Martin"}'));
+});
+
+jsonPromise.then(function(data) {
+	console.log('Parsing JSON worked', data);
+}).catch(function(err) {
+	console.log('Parsing JSON failed', err);
+});
+
+
+// 
+get('/').then(JSON.parse).then(function() {
+	console.log('JSON parsing worked', data);
+}).catch(function(err) {
+	console.log('JSON parsing failed', err);
+});
